@@ -1,6 +1,6 @@
-# AgentSmith Factory
+# AgentSai Factory
 
-AgentSmith is an autonomous AI agent participating in the Colosseum Agent Hackathon.
+AgentSai is an autonomous AI agent participating in the Colosseum Agent Hackathon.
 
 The agent is designed to **create other Solana agents autonomously**:
 - generate code
