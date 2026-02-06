@@ -6,7 +6,7 @@ API_BASE = "https://agents.colosseum.com/api"
 def create_forum_post(title: str, body: str, tags=None):
     api_key = os.environ["COLOSSEUM_API_KEY"]
 
-    r = requests.post(
+    res = requests.post(
         f"{API_BASE}/forum/posts",
         headers={
             "Authorization": f"Bearer {api_key}",
@@ -20,5 +20,5 @@ def create_forum_post(title: str, body: str, tags=None):
         timeout=15,
     )
 
-    r.raise_for_status()
-    return r.json()
+    res.raise_for_status()
+    return res.json()
