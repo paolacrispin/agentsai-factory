@@ -7,7 +7,7 @@ app = FastAPI(title="AgentSai Factory API")
 # 🔐 CORS (OBLIGATORIO para Next.js)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Next.js
+    allow_origins=["*"],  # Next.js
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
