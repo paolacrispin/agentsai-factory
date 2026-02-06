@@ -1,0 +1,49 @@
+# =========================
+# Secrets & credentials
+# =========================
+.env
+.env.*
+!.env.example
+
+# AgentWallet local config
+.agentwallet/
+~/.agentwallet/
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# =========================
+# Logs & runtime artifacts
+# =========================
+logs/
+*.log
+
+# =========================
+# OS / Editor noise
+# =========================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# =========================
+# Frontend (Next.js later)
+# =========================
+node_modules/
+.next/
+out/
