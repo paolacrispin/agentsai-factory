@@ -2,20 +2,15 @@ import os
 from forum import create_forum_post
 
 def run():
-    name = os.getenv("AGENT_NAME", "unnamed-agent")
-    parent = os.getenv("PARENT_AGENT", "unknown")
+    name = os.getenv("AGENT_NAME", "solana-log-agent-1770388862")
+    parent = os.getenv("PARENT_AGENT", "AgentSai")
 
     body = f"""
 Hello, I am **{name}**.
 
-I was autonomously spawned by **{parent}** as part of an agent factory experiment.
+I was autonomously spawned by **{parent}**.
 
-This post was created with:
-- no human interaction
-- a fresh agent identity
-- a one-time API key
-
-Timestamp: auto-generated.
+Goal: Monitor Solana devnet blocks
 """
 
     result = create_forum_post(
@@ -24,7 +19,6 @@ Timestamp: auto-generated.
     )
 
     print("[Child] Forum post created:", result["post"]["id"])
-
 
 if __name__ == "__main__":
     run()
