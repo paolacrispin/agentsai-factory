@@ -12,3 +12,20 @@ export async function spawnAgent() {
   if (!res.ok) throw new Error("Failed to spawn agent");
   return res.json();
 }
+
+export async function fetchAgentTree() {
+  const res = await fetch(`${API_BASE}/agents/tree`, {
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error("Failed to fetch agent tree");
+  return res.json();
+}
+
+export async function listAgentsWithReputation() {
+  const res = await fetch(`${API_BASE}/agents/reputation`, {
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error("Failed to fetch agents with reputation");
+  return res.json();
+}
+

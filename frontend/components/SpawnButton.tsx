@@ -1,44 +1,48 @@
 "use client";
 
 import { useState } from "react";
-import { spawnAgent } from "@/lib/api";
 
 export default function SpawnButton({
   onSpawn,
 }: {
-  onSpawn: () => Promise<void>;
+  onSpawn: () => void;
 }) {
+  const [role, setRole] = useState("logger");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  async function handleClick() {
-    setError(null);
-    setLoading(true);
+  async function spawnAgent() {
     try {
-      await spawnAgent();
-      await onSpawn();
-    } catch (e) {
-      setError("Failed to spawn agent");
+      setLoading(true);
+      await fetch(
+        `http://localhost:8000/agents/spawn?role=${role}`,
+        { method: "POST" }
+      );
+      onSpawn();
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="space-y-2">
-      <button
-        onClick={handleClick}
-        disabled={loading}
-        className={`px-4 py-2 rounded font-medium ${
-          loading
-            ? "bg-gray-300 cursor-not-allowed"
-            : "bg-black text-white hover:bg-gray-800"
-        }`}
+    <div className="flex items-center gap-2">
+      <select
+        value={role}
+        onChange={(e) => setRole(e.target.value)}
+        className="border rounded px-2 py-1 text-sm"
       >
-        {loading ? "Spawning agent…" : "Spawn agent"}
-      </button>
+        <option value="logger">Logger</option>
+        <option value="monitor">Monitor</option>
+        <option value="executor">Executor</option>
+        <option value="generic">Generic</option>
+      </select>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      <button
+        onClick={spawnAgent}
+        disabled={loading}
+        className="px-3 py-1 rounded bg-black text-white text-sm disabled:opacity-50 hover:bg-gray-900"
+      >
+        {loading ? "Spawning..." : "Spawn agent"}
+      </button>
     </div>
   );
 }

@@ -1,35 +1,23 @@
 from agent.factory import AgentSpec, generate_agent, register_and_run_child
 from agent.store import save_agent
-from datetime import datetime
 import time
 
 
-def spawn_agent():
+def spawn_agent(parent_agent="AgentSai", root_agent="AgentSai", role="logger"):
     spec = AgentSpec(
         name=f"solana-log-agent-{int(time.time())}",
         description="Logs Solana devnet activity",
-        goal="Monitor Solana devnet blocks"
+        goal="Monitor Solana devnet blocks",
+        role=role,
     )
 
-    # 1. Genera estructura y código del hijo
+    # 1. Genera estructura del hijo
     generate_agent(spec)
 
-    # 2. Registra el hijo y lo ejecuta
-    child = register_and_run_child(spec)
+    # 2. Registra + ejecuta el hijo (fuente de verdad)
+    child = register_and_run_child(spec, parent_agent=parent_agent, root_agent=root_agent,)
 
-    # 3. Persistencia mínima
-    agent_record = {
-        "name": child["name"],
-        "agentId": child["agentId"],
-        "forumPostId": child.get("forumPostId"),  # ✅ nombre correcto
-        "createdAt": datetime.utcnow().isoformat(),
-    }
+    # 3. Persistencia directa, sin mutar el objeto
+    save_agent(child)
 
-    save_agent(agent_record)
-
-    return agent_record
-
-
-if __name__ == "__main__":
-    result = spawn_agent()
-    print("[Factory] Spawned:", result)
+    return child

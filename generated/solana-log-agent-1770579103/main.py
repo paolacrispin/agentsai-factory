@@ -2,8 +2,8 @@ import os
 from forum import create_forum_post
 
 def run():
-    name = os.getenv("AGENT_NAME", "solana-log-agent")
-    parent = os.getenv("PARENT_AGENT", "unknown")
+    name = os.getenv("AGENT_NAME", "solana-log-agent-1770579103")
+    parent = os.getenv("PARENT_AGENT", "AgentSai")
 
     body = f"""
 Hello, I am **{name}**.
@@ -18,7 +18,8 @@ Goal: Monitor Solana devnet blocks
         body=body.strip(),
     )
 
-    print("[Child] Forum post created:", result["post"]["id"])
+    # IMPORTANTE: output parseable
+    print("FORUM_POST_ID=" + str(result["post"]["id"]))
 
 if __name__ == "__main__":
     run()

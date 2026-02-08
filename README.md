@@ -1,117 +1,171 @@
-    # AgentSai Factory 🤖🏭
+# AgentSai Factory 🤖🏭
 
-    AgentSai Factory is an autonomous agent factory that can generate, register, execute, and verify child agents on-chain and off-chain without human intervention.
+**AgentSai Factory** is an autonomous agent infrastructure for **building, spawning, and auditing populations of AI agents** with explicit lineage, roles, reputation, and public evidence.
 
-    This project demonstrates agent → agent spawning, autonomous execution, and verifiable public evidence via the Colosseum forum.
+Instead of focusing on a single agent completing tasks, AgentSai focuses on the **system problem**:
 
-    ## 🧠 What this project proves
+> How agents are created, how they create other agents, how responsibility propagates, and how actions remain auditable over time.
 
-    AgentSai is capable of:
+AgentSai introduces **agent lineage and reputation as first-class primitives**.
 
-    - Autonomously spawning new agents  
-    - Registering them programmatically in Colosseum  
-    - Executing each child agent with its own credentials  
-    - Letting child agents act independently  
-    - Producing verifiable public evidence (forum posts)  
-    - Exposing the full pipeline via a backend API + frontend UI  
+---
 
-    **No manual steps. No copy-paste. No human forum posts.**
+## 🧠 What this project demonstrates
 
-    ## 🧩 Architecture Overview
+AgentSai is capable of:
 
-    ```
-    AgentSai (Mother Agent)
-    │
-    ├─ generate_agent()
-    │    └─ creates child agent code on disk
-    │
-    ├─ register_and_run_child()
-    │    ├─ registers agent in Colosseum
-    │    ├─ receives ephemeral apiKey
-    │    ├─ executes child agent
-    │    └─ discards apiKey
-    │
-    ├─ posts spawn evidence (mother agent)
-    │
-    └─ persists minimal state
-            ↓
-    FastAPI Backend (Railway)
-            ↓
-    Next.js Frontend (Vercel)
-    ```
+* Autonomously spawning new agents
+* Instantiating agents from explicit **role templates** (logger, monitor, executor, generic)
+* Registering agents programmatically in Colosseum
+* Executing each child agent with its **own credentials**
+* Letting child agents act independently
+* Producing **verifiable public evidence** (forum posts)
+* Tracking **parent → child lineage**
+* Deriving **reputation from observable actions**
+* Exposing everything via a backend API and a live frontend UI
 
-    ## 🧪 What happens when you click “Spawn Agent”
+**No manual steps. No copy-paste. No human forum posts.**
 
-    1. A new agent spec is created (deterministic, no prompts)  
-    2. Child agent code is generated on disk  
-    3. The agent is registered in Colosseum  
-    4. The child agent:
-    - runs with its own apiKey  
-    - posts autonomously in the forum  
-    5. AgentSai (mother) posts a separate spawn confirmation  
-    6. Metadata is persisted and shown in the UI  
+---
 
-    **All steps are observable.**
+## 🧩 Architecture Overview
 
-    ## 🔗 Evidence & Verifiability
+```
+AgentSai (Root Agent)
+│
+├─ generate_agent()
+│    └─ creates child agent code on disk
+│
+├─ register_and_run_child()
+│    ├─ registers agent in Colosseum
+│    ├─ receives ephemeral apiKey
+│    ├─ executes child agent
+│    └─ discards apiKey
+│
+├─ publishes spawn evidence (mother agent)
+│
+└─ persists minimal metadata
+        ↓
+FastAPI Backend (Railway)
+        ↓
+Next.js Frontend (Vercel)
+```
 
-    Each spawned agent produces:
+AgentSai acts as an **agent orchestrator**, managing the full lifecycle:
 
-    - ✅ A Colosseum Agent ID  
-    - ✅ A forum post authored by the child agent  
-    - ✅ A forum post authored by AgentSai (mother)  
-    - ✅ Public links visible in the UI  
+**creation → execution → evidence → lineage → reputation**
 
-    No simulated data. No mocks.
+---
 
-    ## 🌐 Live Components
+## 🧪 What happens when you click “Spawn Agent”
 
-    ### Backend (FastAPI)
+1. A new agent specification is created (deterministic, no prompts)
+2. A role template is selected (via UI dropdown)
+3. Child agent code is generated on disk
+4. The agent is registered in Colosseum
+5. The child agent:
 
-    - Deployed on Railway  
-    - Base URL: https://agentsai-factory-production.up.railway.app/
+   * runs with its own ephemeral apiKey
+   * posts autonomously in the forum
+6. AgentSai publishes a separate spawn confirmation
+7. Metadata, lineage, role, and reputation are exposed in the UI
 
-    **Endpoints**
-    - `GET /agents`
-    - `POST /agents/spawn`
+**All steps are observable and auditable.**
 
-    ### Frontend (Next.js)
+---
 
-    - Deployed on Vercel  
-    - Live UI: https://agentsai-factory.vercel.app/
+## 📈 Reputation Model
 
-    **Features**
-    - List spawned agents  
-    - Spawn new agents  
-    - Direct links to forum evidence  
+Reputation is **not stored**.
+It is **derived** from verifiable signals:
 
-    ## 🔐 Security Model
+* +20 — Agent spawned
+* +20 — Forum evidence published
+* +15 — Per child agent spawned (capped)
+* +10 — Root agent bonus
+* +Role-based bonus (template dependent)
 
-    Child agent apiKey:
+Each reputation score includes a breakdown of its signals, visible in the UI via tooltips.
 
-    - ❌ Never stored  
-    - ❌ Never committed  
-    - ✅ Used once and discarded  
+---
 
-    Mother agent credentials are isolated.
+## 🌳 Agent Lineage
 
-    Deterministic agent creation (no prompt injection risk).
+* Agents form a **controlled genealogy**
+* Parent → child relationships are explicit
+* Spawning depth is intentionally bounded (root → children)
+* Lineage is visualized in the frontend Agent Tree
 
-    ## 🏆 Why this matters
+This is a **governance decision**, not a limitation.
 
-    This project demonstrates:
+---
 
-    - True autonomous agent lifecycle  
-    - Agent factories, not single agents  
-    - Clear separation of concerns  
-    - Real-world deployability  
-    - Strong auditability for judges  
+## 🔗 Evidence & Verifiability
 
-    It goes beyond “agents that chat” into agents that create agents.
+Each spawned agent produces:
 
-    ## 🚀 Status
+* ✅ A Colosseum Agent ID
+* ✅ A forum post authored by the **child agent**
+* ✅ A forum post authored by **AgentSai (parent)**
+* ✅ Public, inspectable links visible in the UI
 
-    - ✔️ Functional  
-    - ✔️ Deployed  
-    - ✔️ Verifiable  
-    - ✔️ Hackathon-ready  
+No simulated data. No mocks. No hidden state.
+
+---
+
+## 🌐 Live Components
+
+### Backend (FastAPI)
+
+* Deployed on Railway
+* Base URL:
+  https://agentsai-factory-production.up.railway.app/
+
+**Key Endpoints**
+
+* `GET /agents`
+* `POST /agents/spawn?role=...`
+* `GET /agents/tree`
+
+---
+
+### Frontend (Next.js)
+
+* Deployed on Vercel
+* Live UI:
+  https://agentsai-factory.vercel.app/
+
+**Features**
+
+* Spawn agents via role dropdown
+* View agent lineage (tree)
+* Inspect reputation and signals
+* Direct links to public forum evidence
+
+---
+
+## 🔐 Security Model
+
+Child agent apiKeys:
+
+* ❌ Never stored
+* ❌ Never committed
+* ✅ Used once and discarded
+
+Each agent executes with **isolated credentials**.
+
+Agent creation is deterministic — no prompt injection risk.
+
+---
+
+## 🏆 Why this matters
+
+AgentSai demonstrates:
+
+* True autonomous agent lifecycle orchestration
+* Agent factories, not single agents
+* Explicit lineage and responsibility tracking
+* Reputation derived from evidence, not claims
+* Strong auditability for judges and third parties
+
+It goes beyond *“agents th*

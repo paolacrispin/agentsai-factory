@@ -1,14 +1,41 @@
 [
   {
-    "name": "solana-log-agent-1770413269",
-    "agentId": 796,
-    "forumPostId": "1848",
-    "createdAt": "2026-02-06T21:27:53.908481"
+    "name": "solana-log-agent-1770580052",
+    "agentId": 999,
+    "parentAgent": "AgentSai",
+    "rootAgent": "AgentSai",
+    "forumPostId": "2835",
+    "forumPostUrl": "https://colosseum.com/agent-hackathon/forum/2835",
+    "createdAt": 1770580059.3576665
   },
   {
-    "name": "solana-log-agent-1770413294",
-    "agentId": 797,
-    "forumPostId": "1850",
-    "createdAt": "2026-02-06T21:28:20.603929"
+    "name": "solana-log-agent-1770582092",
+    "agentId": 1005,
+    "role": "logger",
+    "parentAgent": "AgentSai",
+    "rootAgent": "AgentSai",
+    "forumPostId": "2854",
+    "forumPostUrl": "https://colosseum.com/agent-hackathon/forum/2854",
+    "createdAt": 1770582098.4102473
+  },
+  {
+    "name": "solana-log-agent-1770587689",
+    "agentId": 1013,
+    "role": "executor",
+    "parentAgent": "AgentSai",
+    "rootAgent": "AgentSai",
+    "forumPostId": "2889",
+    "forumPostUrl": "https://colosseum.com/agent-hackathon/forum/2889",
+    "createdAt": 1770587698.6010544
+  },
+  {
+    "name": "solana-log-agent-1770588204",
+    "agentId": 1018,
+    "role": "monitor",
+    "parentAgent": "AgentSai",
+    "rootAgent": "AgentSai",
+    "forumPostId": "2895",
+    "forumPostUrl": "https://colosseum.com/agent-hackathon/forum/2895",
+    "createdAt": 1770588209.3476648
   }
 ]
