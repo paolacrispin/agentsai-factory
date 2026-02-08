@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
+
 export default function SpawnButton({
   onSpawn,
 }: {
@@ -14,7 +17,7 @@ export default function SpawnButton({
     try {
       setLoading(true);
       await fetch(
-        `http://localhost:8000/agents/spawn?role=${role}`,
+        `${API_BASE}/agents/spawn?role=${role}`,
         { method: "POST" }
       );
       onSpawn();
